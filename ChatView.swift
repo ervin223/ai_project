@@ -43,13 +43,13 @@ struct ChatView: View {
                         .cornerRadius(8)
                 }
             }
-            .background(Color(red: 15/255, green: 20/255, blue: 45/255)) // Цвет как на макете
+            .background(Color(red: 15/255, green: 20/255, blue: 45/255))
             .padding(.horizontal)
 
             // 📜 Чат с прокруткой
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(messages, id: \.self) { message in
+                    ForEach(messages, id: \ .self) { message in
                         if message.starts(with: "You:") {
                             HStack {
                                 Spacer()
@@ -112,7 +112,7 @@ struct ChatView: View {
 
             // 🔵 Нижняя панель (синий фон)
             VStack(spacing: 8) {
-                HStack(spacing: 10) {
+                HStack(spacing: 12) {
                     Button(action: {
                         // Действие "Ask for a photo"
                     }) {
@@ -122,10 +122,10 @@ struct ChatView: View {
                         }
                         .font(.caption)
                         .foregroundColor(.white)
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(8)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 14)
+                        .background(Color.gray.opacity(0.25))
+                        .cornerRadius(14)
                     }
 
                     Button(action: {
@@ -137,19 +137,20 @@ struct ChatView: View {
                         }
                         .font(.caption)
                         .foregroundColor(.white)
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(8)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 14)
+                        .background(Color.gray.opacity(0.25))
+                        .cornerRadius(14)
                     }
                 }
+                .padding(.horizontal)
 
                 // Поле ввода сообщения
                 HStack {
-                    TextField("Type a message...", text: $newMessage)
+                    TextField("Enter your message", text: $newMessage)
                         .padding()
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(10)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(20)
                         .foregroundColor(.white)
 
                     Button(action: {
@@ -159,13 +160,16 @@ struct ChatView: View {
                         }
                     }) {
                         Image(systemName: "paperplane.fill")
-                            .foregroundColor(.red)
+                            .foregroundColor(.white)
                             .padding()
+                            .background(Color.red)
+                            .cornerRadius(50)
                     }
                 }
                 .padding(.horizontal)
+                .padding(.bottom, 8)
             }
-            .background(Color(red: 15/255, green: 20/255, blue: 45/255)) // Цвет как на макете
+            .background(Color(red: 15/255, green: 20/255, blue: 45/255))
         }
         .edgesIgnoringSafeArea(.bottom)
     }
