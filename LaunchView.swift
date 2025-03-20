@@ -6,7 +6,9 @@ struct LaunchView: View {
     
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            LinearGradient(gradient: Gradient(colors: [Color.black, Color(red: 0.1, green: 0.1, blue: 0.2)]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            
             VStack(spacing: 20) {
                 Spacer()
                 

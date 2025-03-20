@@ -38,9 +38,9 @@ struct QuestionView: View {
             LinearGradient(gradient: Gradient(colors: [Color.black, Color(red: 0.1, green: 0.1, blue: 0.2)]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            VStack(spacing: 15) {
+            VStack(spacing: 20) {
                 // Заголовок
-                VStack(spacing: 5) {
+                VStack(spacing: 8) {
                     Text("Welcome to\nSoulMate - AI Chat")
                         .foregroundColor(.white)
                         .font(.title.bold())
@@ -58,8 +58,8 @@ struct QuestionView: View {
                     Text("Questions \(currentQuestion)/\(totalQuestions)")
                         .foregroundColor(.gray)
                         .font(.subheadline)
-                        .padding(.bottom, 10)
                 }
+                .padding(.bottom, 10)
                 
                 // Вопрос
                 Text(title)
@@ -69,8 +69,8 @@ struct QuestionView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
                 
-                // Варианты ответов (универсальный вариант)
-                VStack(spacing: 10) {
+                // Варианты ответов (исправленный стиль для 4,5,6 вопросов)
+                VStack(spacing: 12) {
                     ForEach(options, id: \ .self) { option in
                         Button(action: {
                             selectedOption = option
@@ -85,6 +85,7 @@ struct QuestionView: View {
                                 Text(option)
                                     .foregroundColor(.white)
                                     .padding()
+                                    .font(.headline)
                                 
                                 Spacer()
                                 
@@ -93,8 +94,9 @@ struct QuestionView: View {
                                     .padding(.trailing, 15)
                             }
                             .frame(maxWidth: .infinity, minHeight: 55)
-                            .background(selectedOption == option ? Color.white.opacity(0.2) : Color.gray.opacity(0.2))
-                            .cornerRadius(15).overlay(
+                            .background(selectedOption == option ? Color.white.opacity(0.2) : Color.gray.opacity(0.15))
+                            .cornerRadius(15)
+                            .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(selectedOption == option ? Color.white : Color.clear, lineWidth: 2)
                             )
@@ -102,8 +104,9 @@ struct QuestionView: View {
                         }
                     }
                 }
+                .padding(.bottom, 20)
                 
-                // Кнопка "Continue"
+                // Кнопка "Continue" теперь стилизована единообразно
                 Button(action: nextAction) {
                     HStack {
                         Text("Continue")
@@ -118,7 +121,7 @@ struct QuestionView: View {
                     .padding(.horizontal, 20)
                 }
                 .disabled(selectedOption == nil)
-                .padding(.top, 20)
+                .padding(.bottom, 30)
             }
             .padding(.vertical, 30)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

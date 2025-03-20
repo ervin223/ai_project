@@ -5,7 +5,9 @@ struct OnboardingView: View {
     
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            LinearGradient(gradient: Gradient(colors: [Color.black, Color(red: 0.1, green: 0.1, blue: 0.2)]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            
             VStack(spacing: 20) {
                 Spacer()
                 
@@ -36,14 +38,17 @@ struct OnboardingView: View {
                 Button(action: {
                     navigateToSurvey = true
                 }) {
-                    Text("Let's Start!")
-                        .font(.headline.bold())
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .cornerRadius(12)
-                        .padding(.horizontal, 20)
+                    HStack {
+                        Text("Let's Start!")
+                            .font(.headline.bold())
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.red)
+                    .cornerRadius(15)
+                    .padding(.horizontal, 20)
                 }
                 .padding(.bottom, 40)
             }
