@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ChatView: View {
     var userName: String
-    var userImage: String // Фото, выбранное пользователем
+    var userImage: String
+    var onBack: () -> Void      // 🔴 Обязательный параметр
 
     @State private var messages: [String] = [
         "The site rybaxet will help a designer, layout designer, webmaster generate several paragraphs of more or less meaningful text rybaxet in Russian, and a novice speaker to hone the skill of public.",
@@ -13,10 +14,10 @@ struct ChatView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // 🔵 Верхняя панель навигации (тёмно-синий фон)
+            // 🔹 Верхняя панель навигации
             HStack {
                 Button(action: {
-                    // Действие кнопки "Назад"
+                    onBack()  // 🔙 Возврат в PartnerView
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.white)
@@ -32,7 +33,7 @@ struct ChatView: View {
                 Spacer()
 
                 Button(action: {
-                    // Действие для кнопки "Unlimited"
+                    // Действие для кнопки "UNLIMITED"
                 }) {
                     Text("UNLIMITED")
                         .foregroundColor(.black)
@@ -46,10 +47,10 @@ struct ChatView: View {
             .background(Color(red: 15/255, green: 20/255, blue: 45/255))
             .padding(.horizontal)
 
-            // 📜 Чат с прокруткой
+            // 🔹 Сообщения
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(messages, id: \ .self) { message in
+                    ForEach(messages, id: \.self) { message in
                         if message.starts(with: "You:") {
                             HStack {
                                 Spacer()
@@ -69,9 +70,9 @@ struct ChatView: View {
                         }
                     }
 
-                    // 🖼 Блок с фото AI-партнера
+                    // 🔹 AI Partner Image
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(userName):")
+                        Text("AI Partner:")
                             .font(.headline)
                             .foregroundColor(.white)
                             .bold()
@@ -86,7 +87,7 @@ struct ChatView: View {
                                     RoundedRectangle(cornerRadius: 12)
                                         .stroke(Color.white, lineWidth: 2)
                                 )
-                                .blur(radius: isBlurred ? 8 : 0) // Размытие
+                                .blur(radius: isBlurred ? 8 : 0)
 
                             if isBlurred {
                                 Button(action: {
@@ -110,11 +111,11 @@ struct ChatView: View {
             }
             .background(Color.black)
 
-            // 🔵 Нижняя панель (синий фон)
+            // 🔹 Нижняя панель
             VStack(spacing: 8) {
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     Button(action: {
-                        // Действие "Ask for a photo"
+                        // Фото-запрос
                     }) {
                         HStack {
                             Image(systemName: "camera.fill")
@@ -122,14 +123,14 @@ struct ChatView: View {
                         }
                         .font(.caption)
                         .foregroundColor(.white)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 14)
-                        .background(Color.gray.opacity(0.25))
-                        .cornerRadius(14)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(8)
                     }
 
                     Button(action: {
-                        // Действие "Generate question"
+                        // Генерация вопроса
                     }) {
                         HStack {
                             Image(systemName: "lightbulb.fill")
@@ -137,20 +138,19 @@ struct ChatView: View {
                         }
                         .font(.caption)
                         .foregroundColor(.white)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 14)
-                        .background(Color.gray.opacity(0.25))
-                        .cornerRadius(14)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(8)
                     }
                 }
-                .padding(.horizontal)
 
-                // Поле ввода сообщения
+                // Ввод текста
                 HStack {
                     TextField("Enter your message", text: $newMessage)
                         .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(20)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(10)
                         .foregroundColor(.white)
 
                     Button(action: {
@@ -160,14 +160,11 @@ struct ChatView: View {
                         }
                     }) {
                         Image(systemName: "paperplane.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.red)
                             .padding()
-                            .background(Color.red)
-                            .cornerRadius(50)
                     }
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 8)
             }
             .background(Color(red: 15/255, green: 20/255, blue: 45/255))
         }

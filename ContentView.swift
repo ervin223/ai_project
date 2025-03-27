@@ -1,20 +1,44 @@
-//  ContentView.swift
-//  ai_project
-//
-//  Created by Erwin on 24.02.25.
-//
-
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
+    @AppStorage("isRegistered") private var isRegistered = false
+
+    @State private var showLaunch = true
+    @State private var showOnboarding = false
+    @State private var showSurvey = false
+    @State private var showChat = false
+
     var body: some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea() // Растягиваем фон на весь экран
-            
-            LaunchView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if showLaunch {
+                LaunchView {
+                    withAnimation {
+                        showLaunch = false
+                        if !isRegistered {
+                            showOnboarding = true
+                        }
+                    }
+                }
+            } else if showOnboarding {
+                OnboardingView {
+                    showOnboarding = false
+                    showSurvey = true
+                }
+            } else if showSurvey {
+                SurveyView(surveyCompleted: {
+                    isRegistered = true
+                    showSurvey = false
+                    showChat = true
+                })
+            } else if showChat {
+                ChatView(userName: "AI Partner", userImage: "appearance1", onBack: {
+                    showChat = false
+                })
+            } else {
+                PartnerView(onStartChat: {
+                    showChat = true
+                })
+            }
         }
     }
 }
