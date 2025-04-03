@@ -35,7 +35,7 @@ struct ContentView: View {
                     showChat = false
                 })
             } else {
-                PartnerView(onStartChat: {
+                MainTabView(onStartChat: {
                     showChat = true
                 })
             }
